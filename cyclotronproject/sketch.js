@@ -22,6 +22,8 @@ var button7;
 
 //animation variable adjusting
 var silder;
+var silder2;
+var slider3;
 var val;
 
 function preload() {
@@ -30,12 +32,18 @@ function preload() {
   img3 = loadImage("cern.jpg");
   img4 = loadImage("Homepage.jpg");
   vid = createVideo('videotron.mp4');
+
   //play button parameters
   button7 = createButton('play');
-  button7.hide();
-
   button6 = createButton('Go!');
-    button6.hide();
+    slider = createSlider(0, 0.25, 0,0.0001);
+   slider2 = createSlider(0, 0.03, 0.015,0.0001);
+  slider3 = createSlider(10, 90, 10,0.1);
+  slider.hide();
+  slider2.hide();
+  slider3.hide();
+  button6.hide();
+  button7.hide();
 
 }
 
@@ -53,6 +61,9 @@ function draw() {}
 function explanation() {
   vid.show();
   button6.hide();
+  slider.hide();
+  slider2.hide();
+  slider3.hide();
   clear();
   blanket();
 
@@ -82,6 +93,9 @@ blanket();
 vid.hide();
 button7.hide();
 button6.hide();
+slider.hide();
+slider2.hide();
+slider3.hide();
 
   //green page
   fill(150,250,170);
@@ -133,15 +147,23 @@ text("produced by the collision between a beam of particles and the target.",10,
     motion... perhaps I can make it a game where the user must set correct
     variables to make the particle accelerator work correctly.
 
+slider.hide();
+slider2.hide();
+slider3.hide();
+
+
     */
 
 
 function animation() {
 
-  //setup
-  vid.hide();
-  button7.hide();
-  clear();
+  slider.show();
+  slider2.show();
+  slider3.show();
+ slider.position(10, 200);
+slider2.position(10, 210);
+slider3.position(10, 220);
+clear();
   fill(255,255,255);
   rect(0,0,windowWidth,windowHeight);
   blanket();
@@ -149,55 +171,64 @@ function animation() {
      //blue page
      fill(100,100,250);
      rect(0,200,windowWidth,windowHeight);
+         //the spiral-cyclotron motion
+         spiral.a = 0;
+         spiral.r = 50;
 
-     //the spiral-cyclotron motion
-     spiral.a = 0;
-     spiral.r = 50;
+    //go button
+      var col = fill(250,25,255);
+      button6 = createButton('Go!');
+        button6.style("background-color", col);
+        button6.position(750, 550);
+        button6.mousePressed(cyclogo);
+        fill(0,0,0);
+        textSize(15);
+        text("Play with the program and see how to make it move fastest!",200,250);
 
-//go button
-  var col = fill(250,25,255);
-  button6 = createButton('Go!');
-    button6.style("background-color", col);
-    button6.position(750, 550);
-    button6.mousePressed(cyclogo);
-    fill(0,0,0);
-    textSize(15);
-    text("Play with the program and see how to make it move fastest!",200,250);
-}
 
-function cyclogo() {
-
-  //blue page plastered over last one
-  fill(100,100,250);
-  rect(0,200,windowWidth,windowHeight);
-
-    spiral.a = 0;
-    spiral.r = 50;
-    //the spiral-cyclotron motion
-    for(i=0; i<=1000; i++){
-      setTimeout(function(){
-    var x = spiral.r * cos(spiral.a);
-    var y = spiral.r * sin(spiral.a);
-    spiral.a += 0.01;
-    spiral.r += .1;
-    fill(0,0,0);
-    push();
-      translate(width / 2, height / 2);
-      strokeWeight(2);
-      stroke(0,255);
-      ellipse(x/5, y/5, 5, 5);
-      pop();
-    }, 50);
     }
-    fill(0,0,0);
-    text("Play with the program and see how to make it move fastest!",200,250);
-}
+
+    function cyclogo() {
+
+        spiral.a = 0;
+        spiral.r = 50;
+
+      var val = slider.value();
+      var val2 = slider2.value();
+
+
+      //blue page plastered over last one
+      fill(100,100,250);
+      rect(0,200,windowWidth,windowHeight);
+
+        //the spiral-cyclotron motion
+        for(i=0; i<=1000; i++){
+          setTimeout(function(){
+        var x = spiral.r * cos(spiral.a);
+        var y = spiral.r * sin(spiral.a);
+        spiral.a += val2;
+        spiral.r += val;
+        fill(0,0,0);
+        push();
+          translate(width / 2, height / 2);
+          strokeWeight(2);
+          stroke(0,255);
+          ellipse(x/5, y/5, 5, 5);
+          pop();
+        }, 50);
+        }
+        fill(0,0,0);
+        text("Play with the program and see how to make it move fastest!",200,250);
+    }
 
 function computing() {
 
   vid.hide();
   button7.hide();
   button6.hide();
+  slider.hide();
+  slider2.hide();
+  slider3.hide();
   clear();
 
     //sets the page up
@@ -273,6 +304,9 @@ function computing() {
       vid.hide();
       button6.hide();
       button7.hide();
+      slider.hide();
+      slider2.hide();
+      slider3.hide();
       links();
       clear();
 
